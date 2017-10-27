@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\top100;
 
 class DefaultController extends Controller
 {
@@ -80,10 +81,13 @@ class DefaultController extends Controller
     public function Top100Action(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/top100.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $repository = $this->getDoctrine()->getRepository(top100::class);
+        // find *all* jugadores
+        $jugadores = $repository->findAll();
+        return $this->render('AppBundle:Default:top100.html.twig',array("top100"=>$jugadores));
+
     }
+
     /**
      * @Route("/topequipos", name="topequipos")
      */
