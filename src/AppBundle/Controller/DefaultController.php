@@ -168,7 +168,7 @@ class DefaultController extends Controller
        * @Route("/jugador/{nombre}")
        */
        //en la ruta le pasamos el nombre del jugador a buscar
-       public function buscarJugador($nombre)
+       public function buscarJugador($nombre='Lionel')
       {
         //Recuperar el repositorio de la entidad
         $repository = $this->getDoctrine()->getRepository(top100::class);
