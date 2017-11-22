@@ -1,0 +1,16 @@
+table{
+margin-left: 350px;
+}
+td.cabecera{
+    background: #00cccc;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+td {
+    color: #999;
+    border: 1px solid #eee;
+    padding: 5px;
+    border-collapse: collapse;
+  }

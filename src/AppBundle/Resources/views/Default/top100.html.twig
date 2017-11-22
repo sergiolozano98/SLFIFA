@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block top100 %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ asset('css/top100.css') }}" />
+    <title></title>
+  </head>
+  <body>
+
+    <a href="{{asset('/formtop100')}}">Insertar Jugador</a>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="cabecera">Ranking</td>
+        <td class="cabecera">Nombre</td>
+        <td class="cabecera">Apellidos</td>
+        <td class="cabecera">Equipo</td>
+        <td class="cabecera">Media</td>
+        <td class="cabecera">Posicion</td>
+        <td class="cabecera">Tipo</td>
+      </tr>
+    {% for item in top100 %}
+
+        <tr>
+          <td>{{ item.ranking }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.apellidos }}</td>
+          <td>{{ item.equipo }}</td>
+          <td>{{ item.media }}</td>
+          <td>{{ item.posicion }}</td>
+          <td>{{ item.tipo }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+  </body>
+</html>
+{% endblock %}

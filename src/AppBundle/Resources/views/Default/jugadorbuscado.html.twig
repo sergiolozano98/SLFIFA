@@ -1,0 +1,14 @@
+<p>
+El Jugador encontrado es:
+</p>
+<!--Tenemos que crear el for para recorer el array creado y asi poder sacar los datos e imprimir por pantalla-->
+{% for jugadorbuscado in jugador %}
+<br>
+Nombre:{{jugadorbuscado.nombre}}
+<br>
+Apellidos:{{jugadorbuscado.apellidos}}
+<br>
+<!--En la ruta por path le introducimos el id del jugador-->
+Ir al vista:<a href="{{ path('vista',{'id':jugadorbuscado.id}) }}" />Ir a vista</a>
+<br>
+{% endfor %}
