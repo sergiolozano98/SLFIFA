@@ -129,7 +129,7 @@ class DefaultController extends Controller
          return $this->render('AppBundle:Default:formulario.html.twig',array("form"=>$form->createView() ));
     }
     /**
-     * @Route("/actualizarformtop100/{id}")
+     * @Route("/actualizarformtop100/{id}",name="actualizarjugador")
      */
     public function actuFormtop100( Request $request,$id)
     {
@@ -147,7 +147,7 @@ class DefaultController extends Controller
            return $this->render("AppBundle:Default:formulario.html.twig", array('form'=>$form->createView() ));
      }
      /**
-      * @Route("/borrarformtop100/{id}")
+      * @Route("/borrarformtop100/{id}",name="borrarjugador")
       */
      public function borrarFormtop100( Request $request,$id)
      {

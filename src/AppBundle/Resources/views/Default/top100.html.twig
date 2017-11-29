@@ -10,7 +10,7 @@
   </head>
   <body>
 
-    <a href="{{asset('/formtop100')}}">Insertar Jugador</a>
+    <a class="Insertar" href="{{asset('/formtop100')}}">Insertar Jugador</a>
     <br>
     <br>
     <table>
@@ -22,6 +22,8 @@
         <td class="cabecera">Media</td>
         <td class="cabecera">Posicion</td>
         <td class="cabecera">Tipo</td>
+        <td class="cabecera">Borrar</td>
+        <td class="cabecera">Actualizar</td>
       </tr>
     {% for item in top100 %}
 
@@ -33,6 +35,8 @@
           <td>{{ item.media }}</td>
           <td>{{ item.posicion }}</td>
           <td>{{ item.tipo }}</td>
+          <td><a class="form"href="{{ path('borrarjugador',{'id':item.id}) }}" />Borrar</a></td>
+          <td><a class="form"href="{{ path('actualizarjugador',{'id':item.id}) }}" />Actualizar</a></td>
         </tr>
     {% endfor %}
     </table>

@@ -1,5 +1,6 @@
 table{
-margin-left: 350px;
+margin-left: 250px;
+margin-top: 15px;
 }
 td.cabecera{
     background: #00cccc;
@@ -14,3 +15,17 @@ td {
     padding: 5px;
     border-collapse: collapse;
   }
+.form{
+  color: blue;
+  font-size: 15px;
+}
+.Insertar{
+
+  position: absolute;
+  margin-left: 540px;
+  margin-top: 10px;
+  text-decoration: none;
+}
+.Insertar:hover{
+  color: red;
+}
