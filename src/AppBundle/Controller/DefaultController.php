@@ -7,9 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\top100;
 use AppBundle\Form\top100Type;
+use AppBundle\Entity\Usuario;
+use AppBundle\Form\UsuarioType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends Controller
 {
@@ -20,17 +26,6 @@ class DefaultController extends Controller
     {
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-    }
-    /**
-     * @Route("/login", name="login")
-     */
-
-    public function loginAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('default/login.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
@@ -67,19 +62,9 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
-    /**
-     * @Route("/registro", name="registro")
-     */
 
-    public function RegistroAction(Request $request)
-    {
-        // replace this example code with whatever you need
-        return $this->render('default/registro.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-    }
     /**
-     * @Route("/top100", name="top100")
+     * @Route("/admin/top100", name="top100")
      */
 
     public function Top100Action(Request $request)
@@ -123,7 +108,8 @@ class DefaultController extends Controller
           $em->persist($jugador);
           $em->flush();
 
-          return $this->render('AppBundle:Default:insertada.html.twig');
+          //Redirecciona
+          return new RedirectResponse($this->generateUrl('top100'));;
    }
          //le pasamos a la vista el formulario ya pintado
          return $this->render('AppBundle:Default:formulario.html.twig',array("form"=>$form->createView() ));
@@ -142,7 +128,8 @@ class DefaultController extends Controller
              $em = $this->getDoctrine()->getManager();
              $em->persist($jugador);
              $em->flush();
-             return $this->render("AppBundle:Default:update.html.twig");
+             //Redirecciona
+             return new RedirectResponse($this->generateUrl('top100'));;
          }
            return $this->render("AppBundle:Default:formulario.html.twig", array('form'=>$form->createView() ));
      }
@@ -160,7 +147,8 @@ class DefaultController extends Controller
               $em = $this->getDoctrine()->getManager();
               $em->remove($jugador);
               $em->flush();
-              return $this->render("AppBundle:Default:delete.html.twig");
+              //Redirecciona
+              return new RedirectResponse($this->generateUrl('top100'));;
           }
             return $this->render("AppBundle:Default:formulario.html.twig", array('form'=>$form->createView() ));
       }
@@ -193,5 +181,72 @@ class DefaultController extends Controller
 
       }
 
+      /**
+       * @Route("/usuarios", name="usuario")
+       */
+      public function usuariosAction()
+      {
+          return $this->render('default/index.html.twig');
+      }
 
+      /**
+       * @Route("/registro", name="registro")
+       */
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        // 1) build the form
+        $user = new Usuario();
+        $form = $this->createForm(UsuarioType::class, $user);
+
+        // 2) handle the submit (will only happen on POST)
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // 3) Encode the password (you could also do this via Doctrine listener)
+            $password = $this->get('security.password_encoder')
+            ->encodePassword($user,$user->getPlainPassword());
+            $user->setPassword($password);
+
+            // 4) save the User!
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            // ... do any other work - like sending them an email, etc
+            // maybe set a "flash" success message for the user
+
+            return new Response("Usuario insertado correctamente");
+        }
+
+        return $this->render(
+            'AppBundle:Default:registro.html.twig',
+            array('form' => $form->createView())
+        );
+    }
+    /**
+     * @Route("/login", name="login")
+     */
+    public function loginAction(Request $request)
+    {
+      $authenticationUtils = $this->get('security.authentication_utils');
+
+       // get the login error if there is one
+       $error = $authenticationUtils->getLastAuthenticationError();
+
+       // last username entered by the user
+       $lastUsername = $authenticationUtils->getLastUsername();
+
+       return $this->render('AppBundle:Default:login.html.twig', array(
+           'last_username' => $lastUsername,
+           'error'         => $error,
+       ));
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+     public function logout()
+     {
+
+     }
      }

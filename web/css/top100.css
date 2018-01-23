@@ -1,6 +1,7 @@
 table{
 margin-left: 250px;
 margin-top: 15px;
+background-color: white;
 }
 td.cabecera{
     background: #00cccc;
@@ -10,7 +11,7 @@ td.cabecera{
 }
 
 td {
-    color: #999;
+    color: black;
     border: 1px solid #eee;
     padding: 5px;
     border-collapse: collapse;
