@@ -30,7 +30,7 @@ class DefaultController extends Controller
         ]);
     }
     /**
-     * @Route("/contactanos", name="contactanos")
+     * @Route("/user/contactanos", name="contactanos")
      */
 
     public function ContactoAction(Request $request)
@@ -64,7 +64,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/admin/top100", name="top100")
+     * @Route("/top100", name="top100")
      */
 
     public function Top100Action(Request $request)
@@ -89,7 +89,7 @@ class DefaultController extends Controller
         ]);
     }
     /**
-     * @Route("/formtop100", name="formtop100")
+     * @Route("/admin/formtop100", name="formtop100")
      */
     public function Top100FormAction(Request $request)
     {
@@ -134,7 +134,7 @@ class DefaultController extends Controller
            return $this->render("AppBundle:Default:formulario.html.twig", array('form'=>$form->createView() ));
      }
      /**
-      * @Route("/borrarformtop100/{id}",name="borrarjugador")
+      * @Route("/admin/borrarformtop100/{id}",name="borrarjugador")
       */
      public function borrarFormtop100( Request $request,$id)
      {
@@ -206,7 +206,6 @@ class DefaultController extends Controller
             $password = $this->get('security.password_encoder')
             ->encodePassword($user,$user->getPlainPassword());
             $user->setPassword($password);
-
             // 4) save the User!
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

@@ -12,6 +12,8 @@ security:
             entity:
                 class: AppBundle:Usuario
                 property: username
+                #tenemos que indicar donde esta los usuarios registrados
+                #
 
 
     firewalls:
@@ -27,6 +29,7 @@ security:
           anonymous: ~
 
           provider: my_db_provider
+          #indicamos la ruta del login y logout
           form_login:
               login_path: /login
               check_path: /login
@@ -46,5 +49,7 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
     access_control:
+      #todo el mundo anonimo puede acceder al login
         - { path: ^/login,roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/admin,roles: ROLE_ADMIN}
+        - { path: ^/user,roles: ROLE_USER}

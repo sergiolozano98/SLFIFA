@@ -12,8 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
-
-class UsuarioType extends AbstractType
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+class UsuarioTypeNew extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -23,12 +26,16 @@ class UsuarioType extends AbstractType
       $builder
           ->add('email', EmailType::class)
           ->add('username', TextType::class)
-          ->add('plainPassword', RepeatedType::class, array(
-              'type' => PasswordType::class,
-              'first_options'  => array('label' => 'Password'),
-              'second_options' => array('label' => 'Repeat Password'),
-          ))
-      ->add('Insert',SubmitType::class);
+          ->add('Insert',SubmitType::class)
+          ->add('roles', CollectionType::class, array(
+            'entry_type'   => ChoiceType::class,
+            'entry_options'  => array(
+              'choices'  => array(
+                'Admin' => 'ROLE_ADMIN',
+                'User' => 'ROLE_USER',
+              ),
+            ),
+          ));
     }
 
     /**

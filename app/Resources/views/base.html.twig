@@ -11,7 +11,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <style media="screen">
     body {
-      background-image: url("https://cdn.pixabay.com/photo/2014/11/01/01/07/football-511481_960_720.jpg");
+      background-image: url("https://ugc.kn3.net/i/760x/http://yourtubetheme.com/wp-content/uploads/2014/09/Fifa-15-YouTube-Channel-Art-980x551.jpg");
       background-size: cover;
     }
     </style>
@@ -24,7 +24,10 @@
       <li><a href="{{path('top100')}}">TOP 100 Jugadores</a></li>
       <li><a href="{{path('contactanos')}}">Contactanos</a></li>
       <li><a href="{{path('registro')}}">Registrate</a></li>
+      <li><a href="{{path('listusuarios')}}">Lista de usuarios</a></li>
+      {% if app.user %}
       <li><a href="{{asset('/logout')}}">logout</a></li>
+      {% endif %}
     </ul>
   </nav>
   <body>
@@ -32,5 +35,6 @@
   {% block top100 %}{% endblock %}
   {% block formulario %}{% endblock %}
   {% block registro %}{% endblock %}
+  {% block listuser %}{% endblock %}
   </body>
 </html>

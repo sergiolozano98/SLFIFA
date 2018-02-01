@@ -48,8 +48,6 @@ class Usuario implements UserInterface
     private $password;
 
     /**
-   * @Assert\NotBlank()
-   * @Assert\Length(max=4096)
    */
   private $plainPassword;
 
@@ -168,7 +166,7 @@ class Usuario implements UserInterface
     {
       return $this->roles;
      }
-     
+
      public function eraseCredentials(){
 
      }

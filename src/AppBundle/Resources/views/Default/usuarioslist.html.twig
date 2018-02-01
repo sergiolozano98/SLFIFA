@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block listuser %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ asset('css/top100.css') }}" />
+    <title></title>
+  </head>
+  <body>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td class="cabecera">Email</td>
+        <td class="cabecera">Usuario</td>
+        <td class="cabecera">Borrar</td>
+        <td class="cabecera">Actualizar</td>
+      </tr>
+    {% for item in user %}
+
+        <tr>
+          <td>{{ item.email }}</td>
+          <td>{{ item.username }}</td>
+          <td><a class="form"href="{{ path('borrarUser',{'id':item.id}) }}" />Borrar</a></td>
+          <td><a class="form"href="{{ path('actualizaruser',{'id':item.id}) }}" />Actualizar</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+  </body>
+</html>
+{% endblock %}
